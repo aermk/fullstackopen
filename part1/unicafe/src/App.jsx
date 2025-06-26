@@ -13,7 +13,7 @@ const StatisticLine = ({ text, value }) => {
 };
 
 const Statistics = (props) => {
-  const { good, neutral, bad, total, averege, positive } = props;
+  const { good, neutral, bad, total, average, positive } = props;
   return (
     <table>
       <tbody>
@@ -21,7 +21,7 @@ const Statistics = (props) => {
         <StatisticLine text="neutral" value={neutral} />
         <StatisticLine text="bad" value={bad} />
         <StatisticLine text="all" value={total} />
-        <StatisticLine text="averege" value={averege.toFixed(1)} />
+        <StatisticLine text="average" value={average.toFixed(1)} />
         <StatisticLine text="positive" value={positive.toFixed(1)} />
       </tbody>
     </table>
@@ -38,7 +38,7 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
   const total = good + neutral + bad;
-  const averege = total ? (good * 1 + neutral * 0 + bad * -1) / total : 0;
+  const average = total ? (good * 1 + neutral * 0 + bad * -1) / total : 0;
   const positive = total ? (good / total) * 100 : 0;
 
   const handleGoodClick = () => setGood(good + 1);
@@ -61,7 +61,7 @@ const App = () => {
           neutral={neutral}
           bad={bad}
           total={total}
-          averege={averege}
+          average={average}
           positive={positive}
         />
       ) : (
