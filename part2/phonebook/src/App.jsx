@@ -12,30 +12,31 @@ const App = () => {
   ]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  const [filterItem, setFilterItem] = useState("");
+  const [filter, setFilter] = useState("");
 
   const addNewName = (e) => {
     e.preventDefault();
-    const newContact = {
-      name: newName,
-      number: newNumber,
-      id: String(persons.length + 1),
-    };
-    const isNameExisting = persons.find((person) => person.name === newName);
+    if (persons.some((person) => person.name === newName)) {
+      alert(`${newName} is already added to phonebook`);
+    } else {
+      const newPerson = {
+        name: newName,
+        number: newNumber,
+        id: String(persons.length + 1),
+      };
+      setPersons(persons.concat(newPerson));
+    }
 
-    isNameExisting
-      ? alert(`${newName} is already added to phonebook`)
-      : setPersons(persons.concat(newContact));
     setNewName("");
     setNewNumber("");
   };
 
   const handleNameChange = (e) => setNewName(e.target.value);
   const handleNumberChange = (e) => setNewNumber(e.target.value);
-  const handleFilterChange = (e) => setFilterItem(e.target.value);
+  const handleFilterChange = (e) => setFilter(e.target.value);
 
-  const filteredItems = persons.filter((person) =>
-    person.name.toLowerCase().includes(filterItem.toLowerCase())
+  const filteredPersons = persons.filter((person) =>
+    person.name.toLowerCase().includes(filter.toLowerCase())
   );
 
   return (
@@ -44,7 +45,7 @@ const App = () => {
 
       <Filter
         text={"filter shown with: "}
-        filterValue={filterItem}
+        filterValue={filter}
         handleFilterChange={handleFilterChange}
       />
 
@@ -59,7 +60,7 @@ const App = () => {
       />
       <h3>Numbers</h3>
 
-      <List list={filterItem ? filteredItems : persons} />
+      <List list={filteredPersons} />
     </div>
   );
 };
