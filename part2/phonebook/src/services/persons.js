@@ -3,7 +3,13 @@ const baseUrl = "http://localhost:3001/persons";
 
 const getAll = () => {
   const request = axios.get(baseUrl);
-  return request.then((response) => response.data);
+  const nonExisting = {
+    name: "This note is not saved to server",
+    number: "5467890",
+    id: crypto.randomUUID(),
+  };
+  return request.then((response) => response.data.concat(nonExisting));
+  // return request.then((response) => response.data);
 };
 
 const create = (newObject) => {
